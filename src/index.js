@@ -1,7 +1,50 @@
 import "dotenv/config";
 import connectDB from "../db/index.js";
+import { app } from "./app.js";
 
-connectDB();
+// ! Since this is a ASYNC method, it'll return a promise.
+connectDB()
+    .then( () => {
+        // * if any unexpected error occurs
+        app.on("error", (error) => {
+            console.error("ERROR: ", error);
+            throw error;
+        });
+        // * started the server after successfully connecting to DB
+        app.listen(process.env.PORT || 8000, () => {
+            console.log("Server is listening on port: ", process.env.PORT);
+        });
+    }) // TODO: if the promise get resolved sucessfully
+    .catch((err) => {
+        console.log("MongoDB connection failed !! ", err);
+    }); // TODO: otherwise handle the error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 // ! DB connection and server starts listening
