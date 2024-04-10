@@ -1,5 +1,5 @@
 import "dotenv/config";
-import connectDB from "../db/index.js";
+import connectDB from "./db/index.js";
 import { app } from "./app.js";
 
 // ! Since this is a ASYNC method, it'll return a promise.
