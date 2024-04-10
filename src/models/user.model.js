@@ -45,6 +45,16 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
   }
 };
 
+// Method to generate access token
+userSchema.methods.generateAccessToken = function() {
+  return jwt.sign({ userId: this._id, email: this.email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN });
+};
+
+// Method to generate refresh token
+userSchema.methods.generateRefreshToken = function() {
+  return jwt.sign({ userId: this._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN });
+};
+
 const User = mongoose.model("User", userSchema);
 
 export default User;
